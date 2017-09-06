@@ -132,8 +132,8 @@ class ActivieController extends Controller
         $pdf = Input::file('pdf');
         if ($pdf) {
             $extension = $pdf->getClientOriginalExtension();
-            $fileName = 'pdf-'.rand(11111, 99999) . '.' . $extension; // renameing image
-            $destinationPathPdf = 'uploads'; // upload path
+            $fileName = 'pdf-'.rand(11111, 99999) . '.' . $extension; // renomeia o arquivo
+            $destinationPathPdf = 'uploads';// pasta de destino
 
             $pdf->move($destinationPathPdf, $fileName);
             $activie->pdf = $fileName;
@@ -195,8 +195,8 @@ class ActivieController extends Controller
 
         if ($pdf) {
             $extension = $pdf->getClientOriginalExtension();
-            $fileName = 'pdf-'.rand(11111, 99999) . '.' . $extension; // renameing image
-            $destinationPathPdf = 'uploads'; // upload path
+            $fileName = 'pdf-'.rand(11111, 99999) . '.' . $extension; // renomeia o arquivo
+            $destinationPathPdf = 'uploads'; // pasta de destino
 
             $pdf->move($destinationPathPdf, $fileName);
             $activie->pdf = $fileName;
@@ -231,18 +231,17 @@ class ActivieController extends Controller
 
     public function disable($id, $local)
     {
-        $condominio = Activie::findOrfail($id);
-        /*     	$condominio->delete();*/
-        $condominio->publicado = 0;
-        $condominio->save();
+        $activie = Activie::findOrfail($id);
+        $activie->publicado = 0;
+        $activie->save();
         return URL::to("dashboard/activie/$local/index");
     }
 
     public function enable($id, $local)
     {
-        $condominio = Activie::findOrfail($id);
-        $condominio->publicado = 1;
-        $condominio->save();
+        $activie = Activie::findOrfail($id);
+        $activie->publicado = 1;
+        $activie->save();
         return URL::to("dashboard/activie/$local/index");
     }
 }
